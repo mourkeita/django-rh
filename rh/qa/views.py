@@ -4,6 +4,9 @@ from django.template import RequestContext
 from qa.models import Qa
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
+
+from .forms import QaForm
 
 # Create your views here.
 
@@ -43,3 +46,19 @@ def login(request):
                return HttpResponseRedirect('/listUsers')
     else:
         return render_to_response('login.html')	
+
+def newuser(request):
+    form = QaForm()
+    return render(request, 'new_user.html', {'form':form} )
+    if request.method == 'POST':
+        form = QaForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return HttpResponseRedirect('/userdetails')
+    else:
+        form = QaForm()
+
+def userdetails(request):
+    post = request.POST
+    return render(request, 'user_details.html', {'post':post} )
