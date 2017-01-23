@@ -48,13 +48,14 @@ def login(request):
         return render_to_response('login.html')	
 
 def newuser(request):
-    form = QaForm()
-    return render(request, 'new_user.html', {'form':form} )
+    #form = QaForm()
+    #return render(request, 'new_user.html', {'form':form} )
     if request.method == 'POST':
         form = QaForm(request.POST)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
+            #post = form.save(commit=False)
+            #post.save()
+            form.save()
             return HttpResponseRedirect('/userdetails')
     else:
         form = QaForm()
