@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <div>
+        This is an extension from base.html<br>
+        We will try list the members of QA.
+        {% for user in users %}
+        <ul>{{ user.name }} {{ user.first_name }} </ul>
+        {% endfor %}
+       <h3> Âge total =  {{ total_age }} </h3>
+    </div>
+{% endblock %}
