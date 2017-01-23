@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Nouvel utilisateur créé</h3>
+
+<h5>Nom : </h5>{{ post.first }}
+<h5>Prénom : </h5>{{ post.last }}
+<h5>Email : </h5>{{ post.email }}
+<h5>Âge : </h5>{{ post.age }}
+
+{% endblock %}

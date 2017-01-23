@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Nouvel utilisateur</h3>
+<form action='/userdetails' method="POST">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" class="save btn btn-default">Save</button>
+</form>
+{% endblock %}
