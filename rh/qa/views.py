@@ -14,7 +14,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("<h3>Hello, world. Welcome to QA app.</h3><p><h4>C'est quoi les objectifs de la QA ? </h4>")
+    return HttpResponse("<h3>Hello, world. Welcome to RH QA app.</h3><p><h4>C'est quoi les objectifs de la QA ? </h4>")
 
 def listUsers(request):
     users = Qa.objects.all().order_by('id')

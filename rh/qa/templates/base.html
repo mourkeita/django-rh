@@ -7,13 +7,21 @@
 
 </head>
 <body>
-	<div>
-		<a href="/login">
-			<span  class='glyphicon glyphicon-home'> Accueil
-		</a>
-		</span>
-		<h3>RH QA</h3>
-	</div>
+	<nav class="navbar navbar-default" style="position:relative;">
+  		<div class="container-fluid">
+  			<div class="navbar-header">
+  				 <a class="navbar-brand" href="#">RH QA</a>
+  			</div>
+
+    		<ul class="nav navbar-nav">
+    			<li><a href="/login">Accueil</a></li>
+    			<li><a href="/login">Connexion</li></a>
+    			<li><a href="/login">A propos</li></a>
+    			<li><a href="/login">Déconnexion</li></a>
+    		</ul>
+  		</div>
+	</nav>
+
 {% block content %}
 {% endblock %}
 </body>
