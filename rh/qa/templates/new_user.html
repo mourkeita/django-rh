@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <h3>Nouvel utilisateur</h3>
-<form action='/userdetails' method="POST">{% csrf_token %}
+<form class="form-horizontal" action="login" method="post">{% csrf_token %}
+<div class="form-group">
+<div>
 {{ form.as_p }}
-<button type="submit" class="save btn btn-primary">Save</button>
+</div>
+</div>
+<button type="submit" class="save btn btn-primary">Envoyer</button>
+<button type="reset" class="save btn btn-danger">Effacer</button>
 </form>
 {% endblock %}

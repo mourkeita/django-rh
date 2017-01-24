@@ -1,28 +1,48 @@
 <html>
 <head>
-<title>RH QA</title>
+<title>RH</title>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
-	<nav class="navbar navbar-default" style="position:relative;">
-  		<div class="container-fluid">
-  			<div class="navbar-header">
-  				 <a class="navbar-brand" href="#">RH QA</a>
-  			</div>
+  <div class="container">
+  	<nav class="navbar navbar-default">
+    		<div class="container-fluid">
+    			<div class="navbar-header">
+    				 <a class="navbar-brand" href="#">RH</a>
+    			</div>
 
-    		<ul class="nav navbar-nav">
-    			<li><a href="/login">Accueil</a></li>
-    			<li><a href="/login">Connexion</li></a>
-    			<li><a href="/login">A propos</li></a>
-    			<li><a href="/login">Déconnexion</li></a>
-    		</ul>
-  		</div>
-	</nav>
+      		<ul class="nav navbar-nav">
+      			<li><a href="/login">Accueil</a></li>
+      			<li><a href="/login">Connexion</li></a>
+      			<li><a href="/login">A propos</li></a>
+            <li><a href="/listUsers">Liste</li></a>
+      		</ul>
+          <ul  class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/login"><div>
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Déconnexion</div>
+              </a>
+            </li>
+          </ul>
+    		</div>
+  	</nav>
 
-{% block content %}
-{% endblock %}
+    <div>
+
+<div class="row">
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+      {% block content %}
+      {% endblock %} 
+ 
+</div>
+<div class="col-sm-4"></div>      
+    </div>
+  </div>  
+
+
 </body>
 </html>

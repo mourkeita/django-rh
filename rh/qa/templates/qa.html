@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-        This is an extension from base.html<br>
-        We will try list the members of QA.
-        {% for user in users %}
-        <ul>{{ user.first }} {{ user.last }} </ul>
-        {% endfor %}
-       <h3> Âge total =  {{ total_age }} </h3>
-    </div>
+<div><h3>Members of RH.</h3></div><br>
+    {% for user in users %}
+    {{ user.first }} {{ user.last }}<br>
+    {% endfor %}
+<h3> Âge total =  {{ total_age }} </h3>
 {% endblock %}
