@@ -1,24 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-<form action="login" method="post">
-    {% csrf_token %}
-    {% if error %}
-    <p>
-        {{ error }}
-    </p>
-    {% endif %} 
-    <p>
-        <label>Email : </label>
-        <input name="email" id="email" size="30" type="email" />
-    <p>
-    <p>
-        <label>Mot de passe : </label>
-        <input name="password" id="password" size="30" type="password" />
-    </p>
-    <p>
-        <input type="submit" value="Se connecter" />
-        <a href="new">Créer un compte</a>
-    </p>
+
+<form class="form-horizontal" action="login" method="post">
+    <div class="form-group">
+        <label class="col-sm-2 control-label"> 
+            <h3>Log in</h3>
+        </label>
+    </div>
+    <div class="form-group">
+        {% csrf_token %}
+        {% if error %}
+            {{ error }}
+        {% endif %}
+    </div>
+    
+    <div class="form-group">
+        <label for="email" class="col-md-2 control-label">Email : </label>
+        <div class="col-md-2">
+            <input name="email" type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password" class="col-md-2 control-label">Password : </label>
+        <div class="col-md-2">
+            <input  name="password" id="password" type="password" class="form-control" placeholder="Password">
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Remember me
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+    </div>
+
 </form>
 {% endblock %}
+
+
+  
+    
+      
 
