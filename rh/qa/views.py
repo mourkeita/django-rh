@@ -16,6 +16,9 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("<h3>Hello, world. Welcome to RH QA app.</h3><p><h4>C'est quoi les objectifs de la QA ? </h4>")
 
+def logout(request):
+    return render_to_response('logout.html')
+
 def listUsers(request):
     users = Qa.objects.all().order_by('id')
     total_age = 0
@@ -50,17 +53,13 @@ def login(request):
 def newuser(request):
     form = QaForm()
     return render(request, 'new_user.html', {'form':form})
-    if request.method == 'POST':
-        form = QaForm(request.POST)
-        #form.save()
-        #if form.is_valid():
-        #   form.save()
-        post = form.save(commit=False)
-        post.save()
-        return render_to_response('/userdetails')
+
     
 def userdetails(request):
     post = request.POST
-    form = QaForm(request.POST)
-    form.save()
-    return render(request, 'user_details.html', {'post':post} )
+    form = QaForm(post)
+    if form.is_valid():
+        form.save()
+        return render(request, 'user_details.html', {'post':post} )
+    else:
+        return HttpResponseRedirect('/newuser')
