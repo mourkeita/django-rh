@@ -52,15 +52,23 @@ def newuser(request):
     return render(request, 'new_user.html', {'form':form})
     if request.method == 'POST':
         form = QaForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
+        form.save()
+        #if form.is_valid():
+        #    post = form.save(commit=False)
             #post.save()
-            post.save()
-            return redirect('/userdetails')
-    else:
-        form = QaForm()
-    return render(request, 'new_user.html', {'form': form})
+        #    post.save()
+        return render_to_response('/userdetails')
+    # else:
+    #     form = QaForm()
+    #     return render(request, 'new_user.html', {'form': form})
 
 def userdetails(request):
     post = request.POST
     return render(request, 'user_details.html', {'post':post} )
+    if request.method == 'POST':
+        form = QaForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+        #    post.save()
+        form.save()
