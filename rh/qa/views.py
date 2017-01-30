@@ -19,6 +19,10 @@ def index(request):
 def logout(request):
     return render_to_response('logout.html')
 
+def welcome(request):
+    return render_to_response('welcome.html')
+
+
 def listUsers(request):
     users = Qa.objects.all().order_by('id')
     total_age = 0
@@ -42,11 +46,12 @@ def login(request):
         else:
             email = request.POST['email']
             password = request.POST['password']
-            if email != 'test@test.fr' or password != 'test':
+            result = Qa.objects.filter(email=email).first()
+            if email != result.email or password != result.password:
                 error = u'Mot de passe ou email errone'
 		return render_to_response('login.html', {'error':error})
             else:
-               return HttpResponseRedirect('/listUsers')
+               return HttpResponseRedirect('/welcome')
     else:
         return render_to_response('login.html')
 
