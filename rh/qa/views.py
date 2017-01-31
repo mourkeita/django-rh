@@ -31,7 +31,8 @@ def texte(request):
 
 def newuser(request):
     form = QaForm()
-    return render(request, 'new_user.html', {'form':form})
+    message = '*Erreur. Email existant.'
+    return render(request, 'new_user.html', {'form':form}, {'message':message})
 
     
 def userdetails(request):

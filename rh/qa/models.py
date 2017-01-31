@@ -6,6 +6,6 @@ from django.db import models
 class Qa(models.Model):
     first = models.CharField(max_length=200) 
     last = models.CharField(max_length=200)
-    email = models.EmailField(max_length=100, default="")
+    email = models.EmailField(max_length=100, unique=True, default="")
     password = models.CharField(max_length=100, default="")
     age = models.IntegerField(max_length=3)
