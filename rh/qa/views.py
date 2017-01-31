@@ -44,6 +44,7 @@ def userdetails(request):
         return HttpResponseRedirect('/newuser')
 
 def logout(request):
+    request.session['username'] = ''
     return render_to_response('logout.html')
 
 def welcome(request):
