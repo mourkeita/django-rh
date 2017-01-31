@@ -47,7 +47,8 @@ def logout(request):
     return render_to_response('logout.html')
 
 def welcome(request):
-    return render_to_response('welcome.html')
+    username = request.session['username']
+    return render_to_response('welcome.html', {'username':username})
 
 @csrf_exempt 
 def login(request):
@@ -64,6 +65,10 @@ def login(request):
                 error = u'Mot de passe ou email errone'
                 return render_to_response('login.html', {'error':error})
             else:
+               result = Qa.objects.filter(email=email).first()
+               nom = result.first
+               request.session['username'] = nom.capitalize()
+               username = request.session['username']
                return HttpResponseRedirect('/welcome')
     else:
         return render_to_response('login.html')
