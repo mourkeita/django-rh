@@ -63,7 +63,7 @@ def login(request):
             email = request.POST['email']
             password = request.POST['password']
             result = Qa.objects.filter(email=email).first()
-            if email != result.email or password != result.password:
+            if not result or email != result.email or password != result.password:
                 error = u'Mot de passe ou email errone'
                 return render_to_response('login.html', {'error':error})
             else:
