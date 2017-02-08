@@ -1,3 +1,6 @@
+# coding: utf-8
+
+
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -64,7 +67,7 @@ def login(request):
             password = request.POST['password']
             result = Qa.objects.filter(email=email).first()
             if not result or email != result.email or password != result.password:
-                error = u'Mot de passe ou email errone'
+                error = u'Mot de passe ou email erroné'
                 return render_to_response('login.html', {'error':error})
             else:
                result = Qa.objects.filter(email=email).first()
