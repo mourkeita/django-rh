@@ -22,8 +22,11 @@ def index(request):
 def listUsers(request):
     users = Qa.objects.all().order_by('id')
     total_age = 0
+    name_length = 0
     for user in users:
+        name_length = user.first.__sizeof__() + user.last.__sizeof__()
         total_age = total_age + user.age
+        print name_length
 
     context = {'users':users, 'total_age':total_age}
     #context2 = {'total_age':total_age}
@@ -37,7 +40,17 @@ def newuser(request):
     message = '*Erreur. Email existant.'
     return render(request, 'new_user.html', {'form':form}, {'message':message})
 
-    
+def delete(request):
+    '''
+    Get the user id
+    delete it from database
+    '''
+    user = Qa.objects.all()
+    if request.method=='POST':
+        user.delete()
+        return redirect('/listUsers')
+    return render(request, 'listUsers', {'object':user})
+
 def userdetails(request):
     post = request.POST
     form = QaForm(post)
