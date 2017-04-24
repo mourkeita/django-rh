@@ -19,6 +19,9 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponseRedirect("/login")
 
+def api(request):
+    return render_to_response('api.html')
+
 def listUsers(request):
     users = Qa.objects.all().order_by('id')
     total_age = 0
