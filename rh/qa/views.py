@@ -36,7 +36,7 @@ def listUsers(request):
     return render(request, 'qa.html', context )
 
 def texte(request):
-     HttpResponse("<h3>Hello this is a test</h3>")
+    HttpResponse("<h3>Hello this is a test</h3>")
 
 def newuser(request):
     form = QaForm()
