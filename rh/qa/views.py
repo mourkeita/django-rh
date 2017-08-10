@@ -1,11 +1,12 @@
 # coding: utf-8
 
+import json
 
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from qa.models import Qa
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 
@@ -36,7 +37,7 @@ def listUsers(request):
     return render(request, 'qa.html', context )
 
 def texte(request):
-    HttpResponse("<h3>Hello this is a test</h3>")
+        HttpResponse("<h3>Hello this is a test</h3>")
 
 def newuser(request):
     form = QaForm()
@@ -93,3 +94,30 @@ def login(request):
                return HttpResponseRedirect('/welcome')
     else:
         return render_to_response('login.html')
+
+@csrf_exempt
+def get_all(request):
+    result = []
+    if request.method == 'GET':
+        users = Qa.objects.all().values()
+        users_list = list(users)
+    if request.method == 'POST':    
+        body = json.loads(request.body)
+        first = body['first']
+        last = body['last']
+        email = body['email']
+        password = body['password']
+        age = body['age']
+        user = Qa(first=first, last=last, email=email, password=password, age=age)
+        print user.first
+        user.save()
+        return HttpResponse(json.dumps(request.body), content_type='application/json')
+        # import pdb; pdb.set_trace()
+        # user.commit()
+        # users = Qa.objects.all().values()
+        # users_list = list(users)
+        # #return redirect('/api/users')
+
+    return JsonResponse(users_list, safe=False)
+
+
