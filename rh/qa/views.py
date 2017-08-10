@@ -37,7 +37,7 @@ def listUsers(request):
     return render(request, 'qa.html', context )
 
 def texte(request):
-        HttpResponse("<h3>Hello this is a test</h3>")
+    HttpResponse("<h3>Hello this is a test</h3>")
 
 def newuser(request):
     form = QaForm()
@@ -112,11 +112,6 @@ def get_all(request):
         print user.first
         user.save()
         return HttpResponse(json.dumps(request.body), content_type='application/json')
-        # import pdb; pdb.set_trace()
-        # user.commit()
-        # users = Qa.objects.all().values()
-        # users_list = list(users)
-        # #return redirect('/api/users')
 
     return JsonResponse(users_list, safe=False)
 
