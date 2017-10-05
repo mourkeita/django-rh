@@ -24,7 +24,7 @@ def api(request):
     return render_to_response('api.html')
 
 def listUsers(request):
-    users = Qa.objects.all().order_by('id')
+    users = Qa.objects.all()
     total_age = 0
     name_length = 0
     for user in users:
@@ -49,7 +49,9 @@ def delete(request):
     Get the user id
     delete it from database
     '''
-    user = Qa.objects.all()
+    users = Qa.objects.all()
+    ident = request.POST['id']
+    user = Qa.objects.filter(id=ident).first()
     if request.method=='POST':
         user.delete()
         return redirect('/listUsers')
