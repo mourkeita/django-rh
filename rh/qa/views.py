@@ -2,6 +2,7 @@
 
 import json
 
+from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -57,6 +58,12 @@ def delete(request):
         return redirect('/listUsers')
     return render(request, 'listUsers', {'object':user})
 
+def displayuser(request):
+    post = request.POST
+    id = request.POST['id']
+    user = Qa.objects.filter(id=id).first()
+    return render(request, 'user_details.html', {'post': user})
+
 def userdetails(request):
     post = request.POST
     form = QaForm(post)
@@ -71,29 +78,35 @@ def logout(request):
     return render_to_response('logout.html')
 
 def welcome(request):
+    print request.META['HTTP_USER_AGENT']
+    id = request.session['_auth_user_id']
+    print request.session.keys()
     username = request.session['username']
-    return render_to_response('welcome.html', {'username':username})
+    return render_to_response('welcome.html', {'id':id, 'username':username})
 
 @csrf_exempt 
 def login(request):
-    username = "not logged in"
+    #username = "not logged in"
+    #me = authenticate(username=request.POST['email'], password=request.POST['password'])
+    #if me is not None:
+    #    print "Ok"
     if len(request.POST) > 0:
-        if 'email' not in request.POST or 'password' not in request.POST:
-            error = 'Veuillez entrer un email et un mot de passe'
-            return render_to_response('login.html', {'error':error})
-        else:
-            email = request.POST['email']
-            password = request.POST['password']
-            result = Qa.objects.filter(email=email).first()
-            if not result or email != result.email or password != result.password:
-                error = u'Mot de passe ou email erroné'
-                return render_to_response('login.html', {'error':error})
-            else:
-               result = Qa.objects.filter(email=email).first()
-               nom = result.first
-               request.session['username'] = nom.capitalize()
-               username = request.session['username']
-               return HttpResponseRedirect('/welcome')
+         if 'email' not in request.POST or 'password' not in request.POST:
+             error = 'Veuillez entrer un email et un mot de passe'
+             return render_to_response('login.html', {'error':error})
+         else:
+             email = request.POST['email']
+             password = request.POST['password']
+             result = Qa.objects.filter(email=email).first()
+             if not result or email != result.email or password != result.password:
+                 error = u'Mot de passe ou email erroné'
+                 return render_to_response('login.html', {'error':error})
+             else:
+                result = Qa.objects.filter(email=email).first()
+                nom = result.first
+                request.session['username'] = nom.capitalize()
+                username = request.session['username']
+                return HttpResponseRedirect('/welcome')
     else:
         return render_to_response('login.html')
 

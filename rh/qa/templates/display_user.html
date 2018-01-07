@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ user.first }} {{ user.last }}</h3>
+<div>
+<table class="table table-hover">
+	<tr><td>Email : </td><td>{{ post.email }}</td></tr>
+	<tr><td>Âge : </td><td>{{ post.age }}</td></tr>
+</table>
+
+</div>
+{% endblock %}
