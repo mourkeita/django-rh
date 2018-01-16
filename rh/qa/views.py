@@ -106,7 +106,7 @@ def login(request):
                 nom = result.first
                 request.session['username'] = nom.capitalize()
                 username = request.session['username']
-                return HttpResponseRedirect('/welcome')
+                return render_to_response('welcome.html', {'username':username, 'id':result.id})
     else:
         return render_to_response('login.html')
 
