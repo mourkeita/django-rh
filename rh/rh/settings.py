@@ -27,7 +27,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = 	['*']
 
-
+#SESSIONS
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 10
 # Application definition
 
 INSTALLED_APPS = [
