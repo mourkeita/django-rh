@@ -12,7 +12,8 @@ class Qa(models.Model):
     age = models.IntegerField(max_length=3)
 
     def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
+        #Encrypt password self.password = make_password(self.password)
+        self.password = self.password
         print "Save object"
         super(Qa, self).save(*args, **kwargs)
 

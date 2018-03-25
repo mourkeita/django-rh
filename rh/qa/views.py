@@ -49,12 +49,10 @@ def error_page(request):
     return HttpResponse("Login first")
 
 def newuser(request):
-    if 'logged_user_id' in request.session:
-        form = QaForm()
-        message = '*Erreur. Email existant.'
-        return render(request, 'new_user.html', {'form':form}, {'message':message})
-    else:
-        return HttpResponseRedirect("/login")
+    form = QaForm()
+    message = '*Erreur. Email existant.'
+    return render(request, 'new_user.html', {'form':form}, {'message':message})
+
 
 def delete(request):
     '''
