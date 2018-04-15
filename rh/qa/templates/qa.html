@@ -3,20 +3,47 @@ Show the name and last name in the popup before delete !!!!!
 -->
 {% extends "base.html" %}
 {% block content %}
+<script type="text/javascript">
+function search() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("table");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
 <div class="panel panel-default">
 	<div style="text-align: center" class="panel panel-heading">
 		<h5>Members of Hub.io</h5>
 	</div>
+		<div class="input-group">
+			<input onkeyup="search()" value="" id="search" type="search" class="form-control" placeholder="Search ...">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit" onclick="search()">Go
+				</button>
+			</span>
+		</div>
 	<div class="panel panel-body">
-		<table class="table table-hover">
+		<table id="table" class="table table-hover">
 			<tr>
 				<th>Nom</th>
 				<th>View</th>
 				<th>Modify</th>
 				<th>Remove</th>
-			</tr>	
+			</tr>
 			{% for user in users %}
     		<tr>
+
     			<td>
     				<h5>{{ user.first }} {{ user.last }}</h5>
     			</td>
