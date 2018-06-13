@@ -7,7 +7,7 @@
 {{ message }}
 </span>
 {% endif %}
-<form class="form-horizontal" action='/userdetails' method="post">{% csrf_token %}
+<form class="form-horizontal" action='/userdetails' method="post" enctype="multipart/form-data">{% csrf_token %}
 <table class="table table-hover">
 	<tr>
 		<td>Pr&eacute;nom : </td>
@@ -31,7 +31,15 @@
 		<td>{{ form.age }}</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td>Avatar</td>
+		<td><input type="file" name="avatar" accept="image/*"></td>
+	</tr>
+	{% if avatar_url %}
+    <p>File uploaded at: <a href="{{ avatar_url }}">{{ avatar_url }}</a></p>
+  {% endif %}
+	<tr>
+		<td>
+		</td>
 		<td>
 			<button type="submit" class="save btn btn-primary">Envoyer</button>
 			<button type="reset" class="save btn btn-danger">Effacer</button>

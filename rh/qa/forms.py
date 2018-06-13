@@ -6,4 +6,4 @@ class QaForm(forms.ModelForm):
 	age = forms.IntegerField(min_value=0, max_value=200)
 	class Meta:
 		model = Qa
-		fields = ('first','last','email','password', 'age')
+		fields = ('first','last','email','password', 'age', 'avatar')

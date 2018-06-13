@@ -10,6 +10,7 @@ from qa.models import Qa
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
+from django.core.files.storage import FileSystemStorage
 
 from .forms import QaForm
 
@@ -78,11 +79,17 @@ def displayuser(request):
 
 def userdetails(request):
     if 'logged_user_id' in request.session:
+        avatar = request.FILES['avatar']
+        fs = FileSystemStorage()
+        avatar_name = fs.save(avatar.name, avatar)
+
+        avatar_url = fs.url(avatar_name)
+        print avatar_url
         post = request.POST
-        form = QaForm(post)
+        form = QaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, 'user_details.html', {'post':post} )
+            return render(request, 'user_details.html', {'post':post, 'avatar_url':avatar_url} )
         else:
             return HttpResponseRedirect('/newuser')
     else:
@@ -91,6 +98,7 @@ def userdetails(request):
 def logout(request):
     if 'logged_user_id' in request.session:
         request.session['username'] = ''
+        request.session.flush()
         return render_to_response('logout.html')
     else:
         return render_to_response('logout.html', {'deja': 'déjà'})
