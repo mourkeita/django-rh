@@ -3,21 +3,17 @@
 <style>
     .arrondi {
     width: 300px;
-    height: 300px;
-    border: 1px solid #000;
     -webkit-border-radius: 12px / 24px;
-    -moz-border-radius:    12px / 24px;
-    border-radius:         12px / 24px;
 }
 </style>
 <h3>Nouvel utilisateur créé</h3>
 <div>
 <table class="table table-hover">
+    <tr><td colspan="2"><img src="{{ avatar_url }}" class="arrondi" alt="avatar"></td>
 	<tr><td>Nom : </td><td>{{ post.first }}</td></tr>
 	<tr><td>Prénom : </td><td>{{ post.last }}</td></tr>
 	<tr><td>Email : </td><td>{{ post.email }}</td></tr>
 	<tr><td>Âge : </td><td>{{ post.age }}</td>
-    <tr><td>Avatar : </td><td><img src="{{ avatar_url }}" class="arrondi" alt="avatar"></td>
     <tr><td>
             <a href="/listUsers">
                 <button class="btn btn-primary">
