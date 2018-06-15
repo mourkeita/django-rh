@@ -20,25 +20,38 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponseRedirect("/login")
+    if 'logged_user_id' in request.session:
+        username = request.session['username']
+        context = {'username':username}
+        return render(request, 'index.html', context )
+    else:
+        return HttpResponseRedirect("/login")
+
+def companies(request):
+    if 'logged_user_id' in request.session:
+        username = request.session['username']
+        context = {'username':username}
+        return render(request, 'companies.html', context )
+    else:
+        return HttpResponseRedirect("/login")
 
 def api(request):
     if 'logged_user_id' in request.session:
-        return render_to_response('api.html')
+        username = request.session['username']
+        context = {'username':username}
+        return render(request, 'api.html', context )
     else:
         return HttpResponseRedirect("/login")
 
 def listUsers(request):
     if 'logged_user_id' in request.session:
+        username = request.session['username']
         users = Qa.objects.all()
         total_age = 0
-        name_length = 0
         for user in users:
-            name_length = user.first.__sizeof__() + user.last.__sizeof__()
             total_age = total_age + user.age
 
-        context = {'users':users, 'total_age':total_age}
-        #context2 = {'total_age':total_age}
+        context = {'users':users, 'total_age':total_age, 'username':username}
         return render(request, 'qa.html', context )
     else:
         return HttpResponseRedirect("/login")
@@ -70,18 +83,19 @@ def delete(request):
 
 def displayuser(request):
     if 'logged_user_id' in request.session:
-        post = request.POST
+        username = request.session['username']
         id = request.POST['id']
         user = Qa.objects.filter(id=id).first()
-        return render(request, 'user_details.html', {'post': user})
+        return render(request, 'display_user.html', {'post': user, 'username':username})
     else:
         return HttpResponseRedirect("/login")
 
 def userdetails(request):
     if 'logged_user_id' in request.session:
+        username = request.session['username']
         avatar = request.FILES['avatar']
         fs = FileSystemStorage()
-        avatar_name = fs.save(avatar.name, avatar)
+        avatar_name = fs.save(str(request.POST['first']).lower()+'-'+str(request.POST['last']).lower()+'.jpg', avatar)
 
         avatar_url = fs.url(avatar_name)
         print avatar_url
@@ -89,7 +103,7 @@ def userdetails(request):
         form = QaForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, 'user_details.html', {'post':post, 'avatar_url':avatar_url} )
+            return render(request, 'user_details.html', {'post':post, 'avatar_url':avatar_url, 'username':username} )
         else:
             return HttpResponseRedirect('/newuser')
     else:
@@ -113,10 +127,6 @@ def welcome(request):
 
 @csrf_exempt
 def login(request):
-    #username = "not logged in"
-    #me = authenticate(username=request.POST['email'], password=request.POST['password'])
-    #if me is not None:
-    #    print "Ok"
     if len(request.POST) > 0:
          if 'email' not in request.POST or 'password' not in request.POST:
              error = 'Veuillez entrer un email et un mot de passe'
@@ -124,23 +134,21 @@ def login(request):
          else:
              email = request.POST['email']
              password = request.POST['password']
-             result = Qa.objects.filter(email=email).first()
-             if not result or email != result.email or password != result.password:
+             user = Qa.objects.filter(email=email).first()
+             if not user or email != user.email or password != user.password:
                  error = u'Mot de passe ou email erroné'
                  return render_to_response('login.html', {'error':error})
              else:
-                result = Qa.objects.filter(email=email).first()
-                nom = result.first
-                request.session['username'] = nom.capitalize()
-                request.session['logged_user_id'] = result.id
+                user = Qa.objects.filter(email=email).first()
+                request.session['username'] = user.first
+                request.session['logged_user_id'] = user.id
                 username = request.session['username']
-                return render_to_response('welcome.html', {'username':username, 'id':result.id})
+                return render_to_response('welcome.html', {'username':username, 'id':user.id})
     else:
         return render_to_response('login.html')
 
 @csrf_exempt
 def get_all(request):
-    result = []
     if request.method == 'GET':
         users = Qa.objects.all().values()
         users_list = list(users)

@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^texte', views.texte, name='texte'),
     url(r'^login', views.login, name='login'),
+    url(r'^index', views.index, name='index'),
     url(r'^listUsers', views.listUsers, name='listUsers'),
     url(r'^newuser', views.newuser, name='newuser'),
     url(r'^delete', views.delete, name='delete'),
@@ -19,6 +20,7 @@ urlpatterns = [
     url(r'^delete', views.delete, name='delete'),
     url(r'^api/$', views.api, name='api'),
     url(r'^api/users', views.get_all, name='get_all'),
+    url(r'^companies', views.companies, name='companies'),
 ]
 
 if settings.DEBUG:
