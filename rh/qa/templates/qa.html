@@ -61,9 +61,13 @@ function search() {
             </div>
     			</td>
     			<td>
-    				<button class="btn btn-default btn-sm">
-    					<span class="glyphicon glyphicon-pencil"></span>
-    				</button>
+					<form role="form" action="/update" method="post">{% csrf_token %}
+						<input name="id" value= "{{ user.id }}" id="id" type="hidden">
+						<button type="submit" data-toggle="modal" data-target="#update" class="btn btn-default btn-sm">
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+
+					</form>
     			</td>
     			<td>
             <form role="form" action="/delete" method="post">{% csrf_token %}

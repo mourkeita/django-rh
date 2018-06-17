@@ -35,15 +35,15 @@ def companies(request):
     else:
         return HttpResponseRedirect("/login")
 
-def api(request):
+def articles(request):
     if 'logged_user_id' in request.session:
         username = request.session['username']
         context = {'username':username}
-        return render(request, 'api.html', context )
+        return render(request, 'articles.html', context )
     else:
         return HttpResponseRedirect("/login")
 
-def listUsers(request):
+def users(request):
     if 'logged_user_id' in request.session:
         username = request.session['username']
         users = Qa.objects.all()
@@ -56,11 +56,10 @@ def listUsers(request):
     else:
         return HttpResponseRedirect("/login")
 
-def texte(request):
-    return HttpResponse("Hello this is a test")
 
 def error_page(request):
     return HttpResponse("Login first")
+
 
 def newuser(request):
     form = QaForm()
@@ -78,8 +77,9 @@ def delete(request):
     user = Qa.objects.filter(id=ident).first()
     if request.method=='POST':
         user.delete()
-        return redirect('/listUsers')
-    return render(request, 'listUsers', {'object':user})
+        return redirect('/users')
+    return render(request, 'users', {'object':user})
+
 
 def displayuser(request):
     if 'logged_user_id' in request.session:
@@ -87,6 +87,15 @@ def displayuser(request):
         id = request.POST['id']
         user = Qa.objects.filter(id=id).first()
         return render(request, 'display_user.html', {'post': user, 'username':username})
+    else:
+        return HttpResponseRedirect("/login")
+
+def update(request):
+    if 'logged_user_id' in request.session:
+        username = request.session['username']
+        id = request.POST['id']
+        user = Qa.objects.filter(id=id).first()
+        return render(request, 'update.html', {'post': user, 'username':username})
     else:
         return HttpResponseRedirect("/login")
 
