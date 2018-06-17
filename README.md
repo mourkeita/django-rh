@@ -11,3 +11,5 @@ favicon
 5. Cookies
 6. Session
 7. Photo
+8. Add friends
+9. Messagerie
