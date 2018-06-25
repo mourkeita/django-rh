@@ -18,7 +18,7 @@ urlpatterns = [
     url(r'^logout', views.logout, name='logout'),
     url(r'^welcome', views.welcome, name='welcome'),
     url(r'^delete', views.delete, name='delete'),
-    url(r'^articles/$', views.articles, name='articles'),
+    url(r'^articles', views.articles, name='articles'),
     url(r'^api/users', views.get_all, name='get_all'),
     url(r'^companies', views.companies, name='companies'),
 ]
