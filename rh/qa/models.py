@@ -10,7 +10,7 @@ class Qa(models.Model):
     last = models.CharField(max_length=200)
     email = models.EmailField(max_length=100, unique=True, default="")
     password = models.CharField(max_length=100, default="")
-    age = models.IntegerField(max_length=3)
+    age = models.IntegerField()
     avatar = models.FileField()
 
     def save(self, *args, **kwargs):
@@ -20,4 +20,14 @@ class Qa(models.Model):
         super(Qa, self).save(*args, **kwargs)
 
 
-
+class Company(models.Model):
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=400)
+    telephone = models.CharField(max_length=20)
+    siren = models.CharField(max_length=100)
+    siret = models.CharField(max_length=100)
+    activity = models.CharField(max_length=200)
+    size = models.IntegerField()
+    
+    def save(self, *args, **kwargs):
+        super(Company, self).save(*args, **kwargs)

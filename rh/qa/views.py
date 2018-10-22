@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from qa.models import Qa
+from qa.models import Qa, Company
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
@@ -29,8 +29,9 @@ def index(request):
 
 def companies(request):
     if 'logged_user_id' in request.session:
+        companies = Company.objects.all()
         username = request.session['username']
-        context = {'username':username}
+        context = {'username':username, 'companies':companies}
         return render(request, 'companies.html', context )
     else:
         return HttpResponseRedirect("/login")
@@ -72,6 +73,8 @@ def delete(request):
     Get the user id
     delete it from database
     '''
+
+    print "helloooooooooo"
     users = Qa.objects.all()
     ident = request.POST['id']
     user = Qa.objects.filter(id=ident).first()
@@ -79,6 +82,21 @@ def delete(request):
         user.delete()
         return redirect('/users')
     return render(request, 'users', {'object':user})
+
+
+def delete_company(request):
+    '''
+    Get the company id
+    delete it from database
+    '''
+    #import pdb; pdb.set_trace()
+    companies = Company.objects.all()
+    ident = request.POST['id']
+    company = Company.objects.filter(id=ident).first()
+    if request.method=='POST':
+        company.delete()
+        return redirect('/companies')
+    return render(request, 'company', {'object':company})
 
 
 def displayuser(request):

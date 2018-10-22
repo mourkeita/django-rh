@@ -1,5 +1,5 @@
 from django import forms
-from .models import Qa
+from .models import Qa, Company
 
 class QaForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput)
@@ -7,3 +7,9 @@ class QaForm(forms.ModelForm):
 	class Meta:
 		model = Qa
 		fields = ('first','last','email','password', 'age', 'avatar')
+
+
+class CompanyForm(forms.ModelForm):
+	class Meta:
+		model = Company
+		fields = ('name', 'address', 'telephone', 'siren', 'siret', 'activity', 'size')
