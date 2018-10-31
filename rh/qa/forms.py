@@ -1,5 +1,5 @@
 from django import forms
-from .models import Qa, Company
+from .models import Qa, Company, Employment
 
 class QaForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput)
@@ -13,3 +13,9 @@ class CompanyForm(forms.ModelForm):
 	class Meta:
 		model = Company
 		fields = ('name', 'address', 'telephone', 'siren', 'siret', 'activity', 'size')
+
+
+class EmploymentForm(forms.ModelForm):
+	class Meta:
+		model = Employment
+		exclude = ('Qa', 'Company')

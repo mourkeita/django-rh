@@ -31,3 +31,16 @@ class Company(models.Model):
     
     def save(self, *args, **kwargs):
         super(Company, self).save(*args, **kwargs)
+
+
+class Employment(models.Model):
+    company = models.ForeignKey(Company)
+    employee = models.ForeignKey(Qa)
+    employment_date = models.DateTimeField(auto_now_add=True)
+
+
+    def save(self, *args, **kwargs):
+        super(Employment, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = ('company', 'employee')
