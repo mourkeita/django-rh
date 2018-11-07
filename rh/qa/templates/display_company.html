@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .arrondi {
+    width: 300px;
+    -webkit-border-radius: 12px / 24px;
+}
+</style>
+<h3>{{ company.name }} {{ company.last }} </h3>
+<div>
+<table class="table table-hover">
+    <tr><td colspan="2"><img src="{{ MEDIA_URL }}/{{ company.name }}.jpg" class="arrondi" alt="avatar"></td>
+	<tr><td>Nom : </td><td>{{ company.name }}</td></tr>
+	<tr><td>Adresse : </td><td>{{ company.address }}</td></tr>
+	<tr><td>Telephone : </td><td>{{ company.telephone }}</td></tr>
+	<tr><td>SIREN : </td><td>{{ company.siren }}</td>
+    <tr><td>
+            <a href="/companies">
+                <button class="btn btn-primary btn-sm">
+                    <span class='glyphicon glyphicon-chevron-left'></span> Back
+                </button>
+            </a>
+    </td><td></td></tr>
+</table>
+
+</div>
+{% endblock %}

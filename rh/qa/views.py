@@ -98,6 +98,17 @@ def delete_company(request):
         return redirect('/companies')
     return render(request, 'company', {'object':company})
 
+def display_company(request):
+    '''
+    Get the company id
+    delete it from database
+    '''
+    #import pdb; pdb.set_trace()
+    companies = Company.objects.all()
+    ident = request.POST['id']
+    company = Company.objects.filter(id=ident).first()
+    return render(request, 'display_company.html', {'object':company})
+
 
 def displayuser(request):
     if 'logged_user_id' in request.session:

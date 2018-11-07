@@ -28,9 +28,20 @@ class Company(models.Model):
     siret = models.CharField(max_length=100)
     activity = models.CharField(max_length=200)
     size = models.IntegerField()
+    juridical_status = models.CharField(max_length=200, default="")
+    social_capital = models.DecimalField(max_digits=100, decimal_places=100, default=0)
     
     def save(self, *args, **kwargs):
         super(Company, self).save(*args, **kwargs)
+
+class CompanyInformations(models.Model):
+    category = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        super((CompanyInformations, self).save(*args, **kwargs))
 
 
 class Employment(models.Model):

@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^articles', views.articles, name='articles'),
     url(r'^api/users', views.get_all, name='get_all'),
     url(r'^companies', views.companies, name='companies'),
+    url(r'^display_company', views.display_company, name='display_company'),
     url(r'^delete_company', views.delete_company, name='delete_company'),
 ]
 
