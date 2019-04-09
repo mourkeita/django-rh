@@ -13,8 +13,12 @@
     <tr><td colspan="2"><img src="{{ MEDIA_URL }}/{{ company.name }}.jpg" class="arrondi" alt="avatar"></td>
 	<tr><td>Nom : </td><td>{{ company.name }}</td></tr>
 	<tr><td>Adresse : </td><td>{{ company.address }}</td></tr>
-	<tr><td>Telephone : </td><td>{{ company.telephone }}</td></tr>
-	<tr><td>SIREN : </td><td>{{ company.siren }}</td>
+	<tr><td>Téléphone : </td><td>{{ company.telephone }}</td></tr>
+	<tr><td>N° SIREN : </td><td>{{ company.siren }}</td>
+	<tr><td>Activité : </td><td>{{ company.activity }}</td>
+	<tr><td>Effectif : </td><td>{{ company.size }}</td>
+	<tr><td>Statut juridique : </td><td>{{ company.juridical_status}}</td>
+	<tr><td>Capital social : </td><td>{{ company.social_capital}}</td>
     <tr><td>
             <a href="/companies">
                 <button class="btn btn-primary btn-sm">

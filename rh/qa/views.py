@@ -6,13 +6,13 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from qa.models import Qa, Company
+from qa.models import Employee, Company
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 from django.core.files.storage import FileSystemStorage
 
-from .forms import QaForm
+from .forms import EmployeeForm
 
 # Create your views here.
 
@@ -47,7 +47,7 @@ def articles(request):
 def users(request):
     if 'logged_user_id' in request.session:
         username = request.session['username']
-        users = Qa.objects.all()
+        users = Employee.objects.all()
         total_age = 0
         for user in users:
             total_age = total_age + user.age
@@ -63,7 +63,7 @@ def error_page(request):
 
 
 def newuser(request):
-    form = QaForm()
+    form = EmployeeForm()
     message = '*Erreur. Email existant.'
     return render(request, 'new_user.html', {'form':form}, {'message':message})
 
@@ -75,9 +75,9 @@ def delete(request):
     '''
 
     print "helloooooooooo"
-    users = Qa.objects.all()
+    users = Employee.objects.all()
     ident = request.POST['id']
-    user = Qa.objects.filter(id=ident).first()
+    user = Employee.objects.filter(id=ident).first()
     if request.method=='POST':
         user.delete()
         return redirect('/users')
@@ -114,7 +114,7 @@ def displayuser(request):
     if 'logged_user_id' in request.session:
         username = request.session['username']
         id = request.POST['id']
-        user = Qa.objects.filter(id=id).first()
+        user = Employee.objects.filter(id=id).first()
         return render(request, 'display_user.html', {'post': user, 'username':username})
     else:
         return HttpResponseRedirect("/login")
@@ -123,7 +123,7 @@ def update(request):
     if 'logged_user_id' in request.session:
         username = request.session['username']
         id = request.POST['id']
-        user = Qa.objects.filter(id=id).first()
+        user = Employee.objects.filter(id=id).first()
         return render(request, 'update.html', {'post': user, 'username':username})
     else:
         return HttpResponseRedirect("/login")
@@ -138,7 +138,7 @@ def userdetails(request):
         avatar_url = fs.url(avatar_name)
         print avatar_url
         post = request.POST
-        form = QaForm(request.POST, request.FILES)
+        form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return render(request, 'user_details.html', {'post':post, 'avatar_url':avatar_url, 'username':username} )
@@ -172,12 +172,12 @@ def login(request):
          else:
              email = request.POST['email']
              password = request.POST['password']
-             user = Qa.objects.filter(email=email).first()
+             user = Employee.objects.filter(email=email).first()
              if not user or email != user.email or password != user.password:
                  error = u'Mot de passe ou email erroné'
                  return render_to_response('login.html', {'error':error})
              else:
-                user = Qa.objects.filter(email=email).first()
+                user = Employee.objects.filter(email=email).first()
                 request.session['username'] = user.first
                 request.session['logged_user_id'] = user.id
                 username = request.session['username']
@@ -188,7 +188,7 @@ def login(request):
 @csrf_exempt
 def get_all(request):
     if request.method == 'GET':
-        users = Qa.objects.all().values()
+        users = Employee.objects.all().values()
         users_list = list(users)
     if request.method == 'POST':    
         body = json.loads(request.body)
@@ -197,7 +197,7 @@ def get_all(request):
         email = body['email']
         password = body['password']
         age = body['age']
-        user = Qa(first=first, last=last, email=email, password=password, age=age)
+        user = Employee(first=first, last=last, email=email, password=password, age=age)
         print user.first
         user.save()
         return HttpResponse(json.dumps(request.body), content_type='application/json')
