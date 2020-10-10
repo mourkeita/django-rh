@@ -140,11 +140,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-#AUTHENTICATION_BACKENDS  = 'social.backends.facebook.Facebook2OAuth2'
-#AUTHENTICATION_BACKENDS  = 'social_core.backends.facebook.FacebookOAuth2',
-#SOCIAL_AUTH_FACEBOOK_KEY = '436502827124117' # Facebook App ID
-#SOCIAL_AUTH_FACEBOOK_SECRET = 'abc792ab3195cd5ad4cc4e52b8fe3733' # Facebook App Secret
-#LOGIN_REDIRECT_URL = reverse_lazy('index')
-#LOGIN_URL = reverse_lazy('login')
-#LOGOUT_URL = reverse_lazy('logout')

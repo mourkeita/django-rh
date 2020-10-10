@@ -1,6 +1,7 @@
 venv/
 .idea/
 .rh/qa/migrations/
+rh/qa/config
 rh/qa/migrations/*
 *.sqlite3
 *.pyc 
