@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
+from django.core.urlresolvers import reverse_lazy
 reload(sys)
 sys.setdefaultencoding('UTF8')
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'qa',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'rh.urls'
@@ -68,7 +71,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
+                'social.apps.django_app.default',
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -134,3 +140,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#AUTHENTICATION_BACKENDS  = 'social.backends.facebook.Facebook2OAuth2'
+#AUTHENTICATION_BACKENDS  = 'social_core.backends.facebook.FacebookOAuth2',
+#SOCIAL_AUTH_FACEBOOK_KEY = '436502827124117' # Facebook App ID
+#SOCIAL_AUTH_FACEBOOK_SECRET = 'abc792ab3195cd5ad4cc4e52b8fe3733' # Facebook App Secret
+#LOGIN_REDIRECT_URL = reverse_lazy('index')
+#LOGIN_URL = reverse_lazy('login')
+#LOGOUT_URL = reverse_lazy('logout')

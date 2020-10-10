@@ -1,6 +1,7 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 from . import views
 
@@ -22,6 +23,7 @@ urlpatterns = [
     url(r'^companies', views.companies, name='companies'),
     url(r'^display_company', views.display_company, name='display_company'),
     url(r'^delete_company', views.delete_company, name='delete_company'),
+    url(r'^oauth/', include('social.apps.django_app.urls')),  # <--
 ]
 
 if settings.DEBUG:

@@ -61,7 +61,7 @@ class Employment(models.Model):
     employment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.employee.first  + " / " + self.company.name
+        return self.employee.first + " / " + self.company.name
 
     def save(self, *args, **kwargs):
         super(Employment, self).save(*args, **kwargs)
@@ -81,3 +81,14 @@ class Relationship(models.Model):
 
     def save(self, *args, **kwargs):
         super(Relationship, self).save(*args, **kwargs)
+
+class JobOffer(models.Model):
+    title = models.CharField(max_length=200)
+    location = models.CharField(max_length=100)
+    company = models.ForeignKey(Company)
+    jobOfferText = models.TextField(max_length=2000)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    private = models.BooleanField()
+
+    def save(self, *args, **kwargs):
+        super(JobOffer, self).save(*args, **kwargs)

@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from qa.models import Employee, Company
+from qa.models import Employee, Company, JobOffer
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
@@ -20,12 +20,10 @@ from django.http import HttpResponse
 
 
 def index(request):
-    if 'logged_user_id' in request.session:
-        username = request.session['username']
-        context = {'username':username}
-        return render(request, 'index.html', context )
-    else:
-        return HttpResponseRedirect("/login")
+    all_job_offers = list(JobOffer.objects.all())
+    context = {'all_job_offers': all_job_offers}
+    return render_to_response('index.html', context)
+    #return render_to_response('index.html')
 
 def companies(request):
     if 'logged_user_id' in request.session:
