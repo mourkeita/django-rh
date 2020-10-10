@@ -1,2 +1,7 @@
+venv/
+.idea/
+.rh/qa/migrations/
+rh/qa/migrations/*
+*.sqlite3
 *.pyc 
 .DS_Store
