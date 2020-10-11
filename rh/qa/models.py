@@ -82,13 +82,13 @@ class Relationship(models.Model):
     def save(self, *args, **kwargs):
         super(Relationship, self).save(*args, **kwargs)
 
-class JobOffer(models.Model):
-    title = models.CharField(max_length=200)
-    location = models.CharField(max_length=100)
-    company = models.ForeignKey(Company)
-    jobOfferText = models.TextField(max_length=2000)
-    creation_date = models.DateTimeField(auto_now_add=True)
-    private = models.BooleanField()
-
-    def save(self, *args, **kwargs):
-        super(JobOffer, self).save(*args, **kwargs)
+# class JobOffer(models.Model):
+#     title = models.CharField(max_length=200)
+#     location = models.CharField(max_length=100)
+#     company = models.ForeignKey(Company)
+#     jobOfferText = models.TextField(max_length=2000)
+#     creation_date = models.DateTimeField(auto_now_add=True)
+#     private = models.BooleanField()
+#
+#     def save(self, *args, **kwargs):
+#         super(JobOffer, self).save(*args, **kwargs)
