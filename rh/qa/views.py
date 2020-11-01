@@ -72,7 +72,6 @@ def delete(request):
     delete it from database
     '''
 
-    print "helloooooooooo"
     users = Employee.objects.all()
     ident = request.POST['id']
     user = Employee.objects.filter(id=ident).first()
@@ -134,7 +133,6 @@ def userdetails(request):
         avatar_name = fs.save(str(request.POST['first']).lower()+'-'+str(request.POST['last']).lower()+'.jpg', avatar)
 
         avatar_url = fs.url(avatar_name)
-        print avatar_url
         post = request.POST
         form = EmployeeForm(request.POST, request.FILES)
         if form.is_valid():
@@ -196,7 +194,6 @@ def get_all(request):
         password = body['password']
         age = body['age']
         user = Employee(first=first, last=last, email=email, password=password, age=age)
-        print user.first
         user.save()
         return HttpResponse(json.dumps(request.body), content_type='application/json')
 
