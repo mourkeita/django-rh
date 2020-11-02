@@ -4,7 +4,6 @@ import json
 
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-from django.shortcuts import render_to_response
 from django.template import RequestContext
 from qa.models import Employee, Company #, JobOffer
 from django.http import HttpResponseRedirect, JsonResponse
@@ -23,7 +22,7 @@ def index(request):
     # all_job_offers = list(JobOffer.objects.all())
     # context = {'all_job_offers': all_job_offers}
     # return render_to_response('index.html', context)
-    return render_to_response('index.html')
+    return render(request, 'index.html')
 
 def companies(request):
     if 'logged_user_id' in request.session:
@@ -147,15 +146,15 @@ def logout(request):
     if 'logged_user_id' in request.session:
         request.session['username'] = ''
         request.session.flush()
-        return render_to_response('logout.html')
+        return render(request, 'logout.html')
     else:
-        return render_to_response('logout.html', {'deja': 'déjà'})
+        return render(request, 'logout.html', {'deja': 'déjà'})
 
 def welcome(request):
     if 'logged_user_id' in request.session:
         id = request.session['logged_user_id']
         username = request.session['username']
-        return render_to_response('welcome.html', {'id':id, 'username':username})
+        return render(request, 'welcome.html', {'id':id, 'username':username})
     else:
         return HttpResponseRedirect('/login')
 
@@ -164,14 +163,14 @@ def login(request):
     if len(request.POST) > 0:
          if 'email' not in request.POST or 'password' not in request.POST:
              error = 'Veuillez entrer un email et un mot de passe'
-             return render_to_response('login.html', {'error':error})
+             return render(request, 'login.html', {'error':error})
          else:
              email = request.POST['email']
              password = request.POST['password']
              user = Employee.objects.filter(email=email).first()
              if not user or email != user.email or password != user.password:
                  error = u'Mot de passe ou email erroné'
-                 return render_to_response('login.html', {'error':error})
+                 return render(request, 'login.html', {'error':error})
              else:
                 user = Employee.objects.filter(email=email).first()
                 request.session['username'] = user.first
@@ -179,7 +178,7 @@ def login(request):
                 username = request.session['username']
                 return render_to_response('welcome.html', {'username':username, 'id':user.id})
     else:
-        return render_to_response('login.html')
+        return render(request, 'login.html')
 
 @csrf_exempt
 def get_all(request):

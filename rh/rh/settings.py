@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 import os
 import sys
-from django.core.urlresolvers import reverse_lazy
 from importlib import reload
 reload(sys)
 

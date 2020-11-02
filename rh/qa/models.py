@@ -42,7 +42,7 @@ class Company(models.Model):
         super(Company, self).save(*args, **kwargs)
 
 class CompanyInformations(models.Model):
-    company = models.ForeignKey(Company)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     category = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
@@ -56,8 +56,8 @@ class CompanyInformations(models.Model):
 
 
 class Employment(models.Model):
-    employee = models.ForeignKey(Employee)
-    company = models.ForeignKey(Company)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     employment_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Employment(models.Model):
 
 
 class Relationship(models.Model):
-    sender = models.ForeignKey(Employee)
+    sender = models.ForeignKey(Employee, on_delete=models.CASCADE)
     #receiver = models.ForeignKey(Employees)
     request_date = models.DateTimeField(auto_now_add=True)
     response_date = models.DateTimeField(auto_now=False)
