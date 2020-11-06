@@ -167,6 +167,7 @@ def login(request):
          else:
              email = request.POST['email']
              password = request.POST['password']
+             import pdb; pdb.set_trace()
              user = Employee.objects.filter(email=email).first()
              if not user or email != user.email or password != user.password:
                  error = u'Mot de passe ou email erroné'
@@ -176,7 +177,7 @@ def login(request):
                 request.session['username'] = user.first
                 request.session['logged_user_id'] = user.id
                 username = request.session['username']
-                return render_to_response('welcome.html', {'username':username, 'id':user.id})
+                return render(request, 'welcome.html', {'username':username, 'id':user.id})
     else:
         return render(request, 'login.html')
 
