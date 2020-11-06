@@ -167,7 +167,6 @@ def login(request):
          else:
              email = request.POST['email']
              password = request.POST['password']
-             import pdb; pdb.set_trace()
              user = Employee.objects.filter(email=email).first()
              if not user or email != user.email or password != user.password:
                  error = u'Mot de passe ou email erroné'
