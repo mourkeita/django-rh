@@ -20,7 +20,6 @@ class Employee(models.Model):
     def save(self, *args, **kwargs):
         #Encrypt password self.password = make_password(self.password)
         self.password = self.password
-        #print "Save object"
         super(Employee, self).save(*args, **kwargs)
 
 
