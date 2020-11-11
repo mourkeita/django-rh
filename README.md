@@ -15,3 +15,5 @@ favicon
 9. Messagerie
 10. Add Companies
 11. Authent Facebook
+12. Deploy via Jenkins pipe
+13. Deploy via GitHub Actions
