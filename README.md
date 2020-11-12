@@ -17,3 +17,4 @@ favicon
 11. Authent Facebook
 12. Deploy via Jenkins pipe
 13. Deploy via GitHub Actions
+14. Change database from sqlite to postgres in a VM
